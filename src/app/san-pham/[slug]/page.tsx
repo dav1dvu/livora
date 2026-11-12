@@ -206,20 +206,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         </div>
       </div>
 
-      {/* 3. Product Description (Rich HTML if available) */}
-      {product.description && (
-        <section className="bg-white rounded-3xl border border-[#EDE4E1] p-6 sm:p-8 shadow-xs">
-          <h2 className="text-xl font-black text-brand-charcoal mb-6 pb-3 border-b border-[#EDE4E1]">
-            Mô Tả Chi Tiết Sản Phẩm
-          </h2>
-          <div
-            className="prose prose-stone max-w-none prose-headings:font-bold prose-headings:text-brand-charcoal prose-img:rounded-2xl prose-img:mx-auto"
-            dangerouslySetInnerHTML={{ __html: product.description }}
-          />
-        </section>
-      )}
-
-      {/* 4. Related Products */}
+      {/* 3. Related Products */}
       {related.length > 0 && (
         <section className="pt-6">
           <div className="flex items-center justify-between mb-6 pb-2 border-b border-[#EDE4E1]">
