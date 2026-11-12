@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Bé khỏe - Mẹ vui",
+    "slug": "be-khoe-me-vui",
+    "url": "/danh-muc/be-khoe-me-vui",
+    "parentSlug": null,
+    "productCount": 7
+  },
+  {
+    "name": "Nồi nấu chậm",
+    "slug": "noi-nau-cham",
+    "url": "/danh-muc/noi-nau-cham",
+    "parentSlug": null,
+    "productCount": 5
+  },
+  {
+    "name": "Máy xay ăn dặm",
+    "slug": "may-xay-an-dam",
+    "url": "/danh-muc/may-xay-an-dam",
+    "parentSlug": null,
+    "productCount": 3
+  }
+]
