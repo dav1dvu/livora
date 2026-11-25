@@ -1,18 +1,20 @@
 import { ExternalLink } from "lucide-react";
-import { TikTokIcon } from "@/components/ui/Icons";
-import { TIKTOK_SHOP_URL } from "@/lib/types";
+import { FacebookIcon, TikTokIcon } from "@/components/ui/Icons";
+import { FACEBOOK_PAGE_URL, TIKTOK_SHOP_URL } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface BuyButtonProps {
   className?: string;
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
+  channel?: "tiktok" | "facebook";
 }
 
 export default function BuyButton({
   className,
   size = "md",
   fullWidth = false,
+  channel = "tiktok",
 }: BuyButtonProps) {
   const sizeStyles = {
     sm: "px-3.5 py-2 text-xs",
@@ -26,21 +28,35 @@ export default function BuyButton({
     lg: "w-5 h-5",
   };
 
+  const isFacebook = channel === "facebook";
+  const href = isFacebook ? FACEBOOK_PAGE_URL : TIKTOK_SHOP_URL;
+  const label = isFacebook ? "Mua qua Facebook" : "Mua trên TikTok Shop";
+  const ariaLabel = isFacebook
+    ? "Mua sản phẩm này qua Facebook (Mở trong tab mới)"
+    : "Mua sản phẩm này trên TikTok Shop (Mở trong tab mới)";
+
   return (
     <a
-      href={TIKTOK_SHOP_URL}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "inline-flex items-center justify-center gap-2 font-bold rounded-xl text-white bg-[#933D33] hover:bg-[#7D2E25] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#933D33] cursor-pointer select-none min-h-11",
+        "inline-flex items-center justify-center gap-2 font-bold rounded-xl text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 cursor-pointer select-none min-h-11",
+        isFacebook
+          ? "bg-[#374880] hover:bg-[#2B3966] focus-visible:ring-[#5668AD]"
+          : "bg-[#933D33] hover:bg-[#7D2E25] focus-visible:ring-[#933D33]",
         sizeStyles[size],
         fullWidth ? "w-full" : "",
         className
       )}
-      aria-label="Mua sản phẩm này trên TikTok Shop (Mở trong tab mới)"
+      aria-label={ariaLabel}
     >
-      <TikTokIcon className={cn(iconSizes[size], "shrink-0 fill-current")} />
-      <span>Mua trên TikTok Shop</span>
+      {isFacebook ? (
+        <FacebookIcon className={cn(iconSizes[size], "shrink-0 fill-current")} />
+      ) : (
+        <TikTokIcon className={cn(iconSizes[size], "shrink-0 fill-current")} />
+      )}
+      <span>{label}</span>
       <ExternalLink className="w-3.5 h-3.5 opacity-70 shrink-0" />
     </a>
   );

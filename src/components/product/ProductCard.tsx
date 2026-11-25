@@ -1,9 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import { TikTokIcon } from "@/components/ui/Icons";
-import { Product, TIKTOK_SHOP_URL } from "@/lib/types";
-import { formatPrice, getDiscountLabel, getCategoryDisplayName } from "@/lib/utils";
+import { FacebookIcon, TikTokIcon } from "@/components/ui/Icons";
+import { Product, FACEBOOK_PAGE_URL, TIKTOK_SHOP_URL } from "@/lib/types";
+import {
+  formatPrice,
+  getDiscountLabel,
+  getCategoryDisplayName,
+  isBeKhoeMeVuiProduct,
+} from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
 
 interface ProductCardProps {
@@ -12,6 +17,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const imageSource = product.imageUrl || product.thumbnail || "/placeholder.png";
+  const isFacebookOnly = isBeKhoeMeVuiProduct(product);
 
   return (
     <article className="group flex flex-col justify-between h-full bg-white rounded-2xl border border-[#EDE4E1] hover:border-brand-rose hover:shadow-xl hover:shadow-brand-rose/10 transition-all duration-300 overflow-hidden hover:-translate-y-1">
@@ -73,16 +79,31 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       {/* Action Footer */}
       <div className="px-4 pb-4 pt-1 flex items-center gap-2 border-t border-[#F5EBE6]">
-        <a
-          href={TIKTOK_SHOP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#933D33] hover:bg-[#7D2E25] text-white text-xs font-bold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#933D33] cursor-pointer min-h-10"
-          title="Mua trên TikTok Shop"
-        >
-          <TikTokIcon className="w-3.5 h-3.5 fill-current" />
-          <span>TikTok Shop</span>
-        </a>
+        {isFacebookOnly ? (
+          <a
+            href={FACEBOOK_PAGE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#374880] hover:bg-[#2B3966] text-white text-xs font-bold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5668AD] cursor-pointer min-h-10"
+            title="Mua qua Facebook"
+            aria-label={`Mua ${product.name} qua Facebook (Mở trong tab mới)`}
+          >
+            <FacebookIcon className="w-3.5 h-3.5 fill-current shrink-0" />
+            <span>Mua qua Facebook</span>
+          </a>
+        ) : (
+          <a
+            href={TIKTOK_SHOP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#933D33] hover:bg-[#7D2E25] text-white text-xs font-bold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#933D33] cursor-pointer min-h-10"
+            title="Mua trên TikTok Shop"
+            aria-label={`Mua ${product.name} trên TikTok Shop (Mở trong tab mới)`}
+          >
+            <TikTokIcon className="w-3.5 h-3.5 fill-current shrink-0" />
+            <span>TikTok Shop</span>
+          </a>
+        )}
 
         <Link
           href={`/san-pham/${product.slug}`}

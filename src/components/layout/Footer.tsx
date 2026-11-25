@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Phone, Mail, MapPin, ShieldCheck, Heart } from "lucide-react";
 import { FacebookIcon, TikTokIcon } from "@/components/ui/Icons";
-import { Category, SITE_INFO, FACEBOOK_PAGE_URL, TIKTOK_SHOP_URL } from "@/lib/types";
+import { Category, NAV_ITEMS, SITE_INFO, FACEBOOK_PAGE_URL, TIKTOK_SHOP_URL } from "@/lib/types";
 
 interface FooterProps {
   categories: Category[];
@@ -46,11 +46,26 @@ export function Footer({ categories }: FooterProps) {
             </div>
           </div>
 
-          {/* Quick Categories */}
+          {/* Quick Categories & Navigation */}
           <div>
             <h4 className="text-sm font-bold text-white mb-4">
-              Danh Mục Sản Phẩm
+              Điều Hướng & Danh Mục
             </h4>
+            <ul className="space-y-2 text-xs mb-5">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-[#D9CECB] hover:text-brand-rose font-semibold transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <h5 className="text-xs font-bold text-[#9B8C8A] uppercase tracking-wider mb-2.5">
+              Danh Mục Sản Phẩm
+            </h5>
             <ul className="space-y-2 text-xs">
               {displayCats.map((cat) => (
                 <li key={cat.slug}>

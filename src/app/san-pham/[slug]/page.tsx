@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { ShieldCheck, Truck, RotateCcw, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Truck, RotateCcw, CheckCircle2, PhoneCall } from "lucide-react";
 import { getProductBySlug, getRelatedProducts, getAllSlugs } from "@/lib/products";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductSpecs } from "@/components/product/ProductSpecs";
@@ -8,9 +8,14 @@ import { ProductGrid } from "@/components/product/ProductGrid";
 import BuyButton from "@/components/product/BuyButton";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { FacebookIcon } from "@/components/ui/Icons";
-import { formatPrice, getDiscountLabel, getCategoryDisplayName } from "@/lib/utils";
+import {
+  formatPrice,
+  getDiscountLabel,
+  getCategoryDisplayName,
+  isBeKhoeMeVuiProduct,
+} from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
-import { FACEBOOK_PAGE_URL } from "@/lib/types";
+import { FACEBOOK_PAGE_URL, SITE_INFO } from "@/lib/types";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -34,9 +39,13 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     };
   }
 
+  const isFacebookOnly = isBeKhoeMeVuiProduct(product);
+
   return {
     title: `${product.name} | LIVORA Official Store`,
-    description: `Mua ${product.name} chính hãng LIVORA với giá ${formatPrice(product.price)}. Bảo hành 18 tháng, 1 đổi 1 trong 30 ngày. Đặt mua qua TikTok Shop & tư vấn Fanpage Facebook.`,
+    description: isFacebookOnly
+      ? `Mua ${product.name} chính hãng LIVORA với giá ${formatPrice(product.price)}. Bảo hành 18 tháng, 1 đổi 1 trong 30 ngày. Đặt mua chính hãng qua Fanpage Facebook LIVORA.`
+      : `Mua ${product.name} chính hãng LIVORA với giá ${formatPrice(product.price)}. Bảo hành 18 tháng, 1 đổi 1 trong 30 ngày. Đặt mua qua TikTok Shop & tư vấn Fanpage Facebook.`,
     openGraph: {
       title: product.name,
       description: `Giá ưu đãi: ${formatPrice(product.price)} - Bảo hành chính hãng 18 tháng`,
@@ -54,6 +63,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   }
 
   const categoryName = getCategoryDisplayName(product.category);
+  const isFacebookOnly = isBeKhoeMeVuiProduct(product);
   const related = await getRelatedProducts(product, 4);
   const galleryImages =
     product.gallery && product.gallery.length > 0
@@ -139,7 +149,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             </div>
           </div>
 
-          {/* PRIMARY CALL TO ACTION: TikTok Shop & Facebook Fanpage */}
+          {/* PRIMARY CALL TO ACTION: Channel-aware Purchase & Support */}
           <div className="p-6 rounded-2xl bg-white border-2 border-brand-rose-border shadow-xl shadow-brand-rose/10 space-y-4">
             <div>
               <div className="flex items-center justify-between">
@@ -151,23 +161,39 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 </span>
               </div>
               <p className="text-xs text-brand-muted mt-1">
-                Đặt hàng nhanh chóng qua TikTok Shop để nhận ưu đãi vận chuyển & giảm giá, hoặc nhắn tin trực tiếp tới Fanpage Facebook để được hỗ trợ 24/7.
+                {isFacebookOnly
+                  ? "Đặt mua và nhận tư vấn trực tiếp qua Fanpage Facebook chính thức của LIVORA để được hỗ trợ 24/7."
+                  : "Đặt hàng nhanh chóng qua TikTok Shop để nhận ưu đãi vận chuyển & giảm giá, hoặc nhắn tin trực tiếp tới Fanpage Facebook để được hỗ trợ 24/7."}
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1">
-                <BuyButton size="lg" fullWidth />
+                <BuyButton
+                  channel={isFacebookOnly ? "facebook" : "tiktok"}
+                  size="lg"
+                  fullWidth
+                />
               </div>
-              <a
-                href={FACEBOOK_PAGE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm bg-brand-lavender-light hover:bg-[#E2E6F7] text-[#374880] border border-brand-lavender-border transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5668AD] cursor-pointer min-h-12"
-              >
-                <FacebookIcon className="w-5 h-5 fill-current shrink-0" />
-                <span>Tư vấn qua Facebook</span>
-              </a>
+              {isFacebookOnly ? (
+                <a
+                  href={`tel:${SITE_INFO.phone.replace(/[^0-9]/g, "")}`}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm bg-brand-rose-light hover:bg-[#F8DFD7] text-[#933D33] border border-brand-rose-border transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#933D33] cursor-pointer min-h-12"
+                >
+                  <PhoneCall className="w-4 h-4 shrink-0" />
+                  <span>Hotline: {SITE_INFO.phone}</span>
+                </a>
+              ) : (
+                <a
+                  href={FACEBOOK_PAGE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm bg-brand-lavender-light hover:bg-[#E2E6F7] text-[#374880] border border-brand-lavender-border transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5668AD] cursor-pointer min-h-12"
+                >
+                  <FacebookIcon className="w-5 h-5 fill-current shrink-0" />
+                  <span>Tư vấn qua Facebook</span>
+                </a>
+              )}
             </div>
           </div>
 

@@ -54,6 +54,19 @@ export const SITE_INFO: SiteInfo = {
 export const TIKTOK_SHOP_URL = "https://www.tiktok.com/@maymaytaplamtiktok";
 export const FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=61595278235275";
 
+export interface NavItem {
+  label: string;
+  href: string;
+}
+
+export const NAV_ITEMS: NavItem[] = [
+  { label: "Home", href: "/" },
+  { label: "About us", href: "/about" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contact", href: "/contact" },
+  { label: "Shop", href: "/shop" },
+];
+
 export const DEFAULT_CATEGORIES: Category[] = [
   { name: "Bé khỏe - Mẹ vui", slug: "be-khoe-me-vui", url: "/danh-muc/be-khoe-me-vui", parentSlug: null, productCount: 7 },
   { name: "Nồi nấu chậm", slug: "noi-nau-cham", url: "/danh-muc/noi-nau-cham", parentSlug: null, productCount: 5 },

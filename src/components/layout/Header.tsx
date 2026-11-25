@@ -3,17 +3,31 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, PhoneCall, ChevronDown, Flame, Sparkles, Heart } from "lucide-react";
 import { SearchBar } from "./SearchBar";
 import { MobileMenu } from "./MobileMenu";
 import { FacebookIcon, TikTokIcon } from "@/components/ui/Icons";
-import { Category, TIKTOK_SHOP_URL, FACEBOOK_PAGE_URL, SITE_INFO } from "@/lib/types";
+import { Category, NAV_ITEMS, TIKTOK_SHOP_URL, FACEBOOK_PAGE_URL, SITE_INFO } from "@/lib/types";
 
 interface HeaderProps {
   categories: Category[];
 }
 
+function isNavActive(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+  if (href === "/shop") {
+    return (
+      pathname === "/shop" ||
+      pathname.startsWith("/danh-muc") ||
+      pathname.startsWith("/san-pham")
+    );
+  }
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function Header({ categories }: HeaderProps) {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -132,58 +146,83 @@ export function Header({ categories }: HeaderProps) {
           </div>
         </div>
 
-        {/* Desktop Category Navigation */}
-        <div className="hidden lg:block border-t border-[#EDE4E1] bg-[#FAF5F0]/80">
+        {/* Primary Navigation Bar */}
+        <div className="border-t border-[#EDE4E1] bg-[#FAF5F0]/90">
           <div className="container mx-auto px-4">
-            <nav aria-label="Danh mục chính" className="flex items-center gap-3 py-1.5 text-xs font-semibold text-[#4A3B3A]">
-              {/* Dropdown Tất cả danh mục */}
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  type="button"
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                  onMouseEnter={() => setDropdownOpen(true)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-brand-rose-light text-brand-primary hover:bg-[#F8DFD7] border border-brand-rose-border transition-colors cursor-pointer font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
-                >
-                  <span>Tất cả danh mục</span>
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`} />
-                </button>
-
-                {/* Dropdown Menu Dọc */}
-                {dropdownOpen && (
-                  <div
-                    onMouseLeave={() => setDropdownOpen(false)}
-                    className="absolute left-0 top-full mt-1 w-64 bg-white rounded-xl shadow-2xl border border-[#EDE4E1] py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150 max-h-[80vh] overflow-y-auto"
-                  >
+            <div className="flex items-center justify-between gap-3 py-2">
+              {/* 5 Main Navigation Links */}
+              <nav
+                aria-label="Điều hướng chính"
+                className="flex items-center gap-1 sm:gap-2 overflow-x-auto text-xs sm:text-sm font-bold text-[#4A3B3A]"
+              >
+                {NAV_ITEMS.map((item) => {
+                  const active = isNavActive(pathname, item.href);
+                  return (
                     <Link
-                      href="/danh-muc/tat-ca"
-                      onClick={() => setDropdownOpen(false)}
-                      className="block px-4 py-2.5 text-xs font-bold text-brand-primary hover:bg-brand-rose-light border-b border-[#F5EBE6]"
+                      key={item.href}
+                      href={item.href}
+                      aria-current={active ? "page" : undefined}
+                      className={`shrink-0 px-3 sm:px-3.5 py-1.5 rounded-lg border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary ${
+                        active
+                          ? "bg-brand-rose-light text-brand-primary border-brand-rose-border"
+                          : "border-transparent text-[#4A3B3A] hover:text-brand-primary hover:bg-white/80"
+                      }`}
                     >
-                      Xem tất cả sản phẩm
+                      {item.label}
                     </Link>
-                    {categories.map((cat) => (
-                      <Link
-                        key={cat.slug}
-                        href={`/danh-muc/${cat.slug}`}
-                        onClick={() => setDropdownOpen(false)}
-                        className="flex items-center justify-between px-4 py-2 text-xs text-[#4A3B3A] hover:text-brand-primary hover:bg-brand-rose-light/70 transition-colors"
-                      >
-                        <span>{cat.name}</span>
-                        {cat.productCount > 0 && (
-                          <span className="text-[10px] text-brand-muted bg-[#F7ECE8] px-1.5 py-0.5 rounded">
-                            {cat.productCount}
-                          </span>
-                        )}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
+                  );
+                })}
+              </nav>
 
-              {/* 2 Kiểu Sort: HOT và MỚI */}
-              <div className="flex items-center gap-2 ml-1">
+              {/* Desktop Category & Sort Controls */}
+              <div className="hidden lg:flex items-center gap-2 shrink-0 text-xs font-semibold">
+                {/* Dropdown Tất cả danh mục */}
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    type="button"
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    onMouseEnter={() => setDropdownOpen(true)}
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-brand-rose-light text-brand-primary hover:bg-[#F8DFD7] border border-brand-rose-border transition-colors cursor-pointer font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
+                  >
+                    <span>Tất cả danh mục</span>
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`} />
+                  </button>
+
+                  {/* Dropdown Menu Dọc */}
+                  {dropdownOpen && (
+                    <div
+                      onMouseLeave={() => setDropdownOpen(false)}
+                      className="absolute right-0 top-full mt-1 w-64 bg-white rounded-xl shadow-2xl border border-[#EDE4E1] py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150 max-h-[80vh] overflow-y-auto"
+                    >
+                      <Link
+                        href="/shop"
+                        onClick={() => setDropdownOpen(false)}
+                        className="block px-4 py-2.5 text-xs font-bold text-brand-primary hover:bg-brand-rose-light border-b border-[#F5EBE6]"
+                      >
+                        Xem tất cả sản phẩm
+                      </Link>
+                      {categories.map((cat) => (
+                        <Link
+                          key={cat.slug}
+                          href={`/danh-muc/${cat.slug}`}
+                          onClick={() => setDropdownOpen(false)}
+                          className="flex items-center justify-between px-4 py-2 text-xs text-[#4A3B3A] hover:text-brand-primary hover:bg-brand-rose-light/70 transition-colors"
+                        >
+                          <span>{cat.name}</span>
+                          {cat.productCount > 0 && (
+                            <span className="text-[10px] text-brand-muted bg-[#F7ECE8] px-1.5 py-0.5 rounded">
+                              {cat.productCount}
+                            </span>
+                          )}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* 2 Kiểu Sort: HOT và MỚI */}
                 <Link
-                  href="/danh-muc/tat-ca?sort=hot"
+                  href="/shop?sort=hot"
                   className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg font-bold text-xs bg-brand-rose-light text-brand-primary hover:bg-[#F8DFD7] border border-brand-rose-border transition-colors cursor-pointer"
                 >
                   <Flame className="w-3.5 h-3.5 text-brand-primary" />
@@ -191,14 +230,14 @@ export function Header({ categories }: HeaderProps) {
                 </Link>
 
                 <Link
-                  href="/danh-muc/tat-ca?sort=moi"
+                  href="/shop?sort=moi"
                   className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg font-bold text-xs bg-brand-lavender-light text-[#6071B8] hover:bg-[#E2E6F7] border border-brand-lavender-border transition-colors cursor-pointer"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-[#6071B8]" />
                   <span>MỚI RA MẮT</span>
                 </Link>
               </div>
-            </nav>
+            </div>
           </div>
         </div>
       </header>

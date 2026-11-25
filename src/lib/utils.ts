@@ -52,3 +52,18 @@ export function getCategoryDisplayName(slugOrName: string | undefined | null): s
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
+
+/**
+ * Checks whether a product belongs to the "Bé khỏe - Mẹ vui" category.
+ * Products in this category are sold directly via Facebook instead of TikTok Shop.
+ */
+export function isBeKhoeMeVuiProduct(product: {
+  category?: string | null;
+  categories?: string[] | null;
+}): boolean {
+  return (
+    product.category === "be-khoe-me-vui" ||
+    (Array.isArray(product.categories) &&
+      product.categories.includes("Bé khỏe - Mẹ vui"))
+  );
+}

@@ -3,9 +3,10 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { X, ExternalLink, Heart } from "lucide-react";
 import { FacebookIcon, TikTokIcon } from "@/components/ui/Icons";
-import { Category, TIKTOK_SHOP_URL, FACEBOOK_PAGE_URL, SITE_INFO } from "@/lib/types";
+import { Category, NAV_ITEMS, TIKTOK_SHOP_URL, FACEBOOK_PAGE_URL, SITE_INFO } from "@/lib/types";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -14,6 +15,8 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isOpen, onClose, categories }: MobileMenuProps) {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -101,22 +104,35 @@ export function MobileMenu({ isOpen, onClose, categories }: MobileMenuProps) {
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex-1 overflow-y-auto p-4 divide-y divide-[#EDE4E1]">
-          <div className="py-2">
-            <Link
-              href="/"
-              onClick={onClose}
-              className="block py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-primary"
-            >
-              Trang Chủ
-            </Link>
-            <Link
-              href="/danh-muc/tat-ca"
-              onClick={onClose}
-              className="block py-2 text-sm font-semibold text-brand-charcoal hover:text-brand-primary"
-            >
-              Tất Cả Sản Phẩm
-            </Link>
+        <nav aria-label="Menu di động" className="flex-1 overflow-y-auto p-4 divide-y divide-[#EDE4E1]">
+          <div className="py-2 space-y-1">
+            <p className="text-[11px] font-bold text-brand-muted uppercase tracking-wider mb-2">
+              Điều Hướng
+            </p>
+            {NAV_ITEMS.map((item) => {
+              const active =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname === item.href ||
+                    (item.href === "/shop" &&
+                      (pathname.startsWith("/danh-muc") ||
+                        pathname.startsWith("/san-pham")));
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={onClose}
+                  aria-current={active ? "page" : undefined}
+                  className={`block px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                    active
+                      ? "bg-brand-rose-light text-brand-primary"
+                      : "text-brand-charcoal hover:text-brand-primary hover:bg-[#FAF5F0]"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
 
           <div className="py-2">
