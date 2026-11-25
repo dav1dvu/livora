@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Flame, Sparkles, ShoppingBag } from "lucide-react";
+import { Flame, Sparkles } from "lucide-react";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { getCategories } from "@/lib/categories";
@@ -16,7 +16,11 @@ interface ShopPageProps {
   searchParams: Promise<{ category?: string; sort?: string; q?: string }>;
 }
 
-function buildShopHref(params: { category?: string; sort?: string; q?: string }): string {
+function buildShopHref(params: {
+  category?: string;
+  sort?: string;
+  q?: string;
+}): string {
   const sp = new URLSearchParams();
   if (params.category) sp.set("category", params.category);
   if (params.sort) sp.set("sort", params.sort);
@@ -46,21 +50,17 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     : "Tất cả sản phẩm";
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 space-y-6 sm:space-y-8 pb-14">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8 pb-16">
       <Breadcrumb items={[{ label: "Shop" }]} />
 
       {/* Header */}
-      <div className="rounded-3xl bg-white border border-[#EDE4E1] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="rounded-3xl bg-white p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-[#933D33] mb-2">
-            <ShoppingBag className="w-4 h-4" />
-            <span>LIVORA Official Store</span>
-          </div>
           <h1 className="text-2xl sm:text-4xl font-black text-[#1E1616] tracking-tight">
             {q ? `Tìm kiếm: "${q}"` : activeCategoryName}
           </h1>
-          <p className="text-xs sm:text-sm text-[#5A4D4B] mt-1">
-            Hiển thị {products.length} sản phẩm chính hãng — bảo hành 18 tháng, 1 đổi 1 trong 30 ngày
+          <p className="text-xs sm:text-sm text-[#5A4D4B] mt-1.5 tabular-nums">
+            Hiển thị {products.length} sản phẩm chính hãng, bảo hành 18 tháng, 1 đổi 1 trong 30 ngày
           </p>
         </div>
 
@@ -68,20 +68,20 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         <div className="flex flex-wrap items-center gap-2">
           <Link
             href={buildShopHref({ category, q })}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition-colors ${
+            className={`px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-colors min-h-10 inline-flex items-center ${
               !sort
-                ? "bg-[#933D33] text-white border-[#933D33]"
-                : "bg-brand-cream text-[#4A3B3A] border-[#EDE4E1] hover:border-brand-primary"
+                ? "bg-[#933D33] text-white"
+                : "bg-[#F4EBE6] text-[#4A3B3A] hover:bg-[#EADBD4]"
             }`}
           >
             Tất cả
           </Link>
           <Link
             href={buildShopHref({ category, sort: "hot", q })}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold border transition-colors ${
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-colors min-h-10 ${
               sort === "hot"
-                ? "bg-[#933D33] text-white border-[#933D33]"
-                : "bg-brand-rose-light text-brand-primary border-brand-rose-border hover:bg-[#F8DFD7]"
+                ? "bg-[#933D33] text-white"
+                : "bg-brand-rose-light text-brand-primary hover:bg-[#F8DFD7]"
             }`}
           >
             <Flame className="w-3.5 h-3.5" />
@@ -89,10 +89,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           </Link>
           <Link
             href={buildShopHref({ category, sort: "moi", q })}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold border transition-colors ${
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-colors min-h-10 ${
               sort === "moi"
-                ? "bg-[#374880] text-white border-[#374880]"
-                : "bg-brand-lavender-light text-[#374880] border-brand-lavender-border hover:bg-[#E2E6F7]"
+                ? "bg-[#374880] text-white"
+                : "bg-brand-lavender-light text-[#374880] hover:bg-[#E2E6F7]"
             }`}
           >
             <Sparkles className="w-3.5 h-3.5" />
@@ -105,10 +105,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       <div className="flex flex-wrap items-center gap-2">
         <Link
           href={buildShopHref({ sort })}
-          className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border transition-colors ${
+          className={`px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-colors min-h-10 inline-flex items-center ${
             !category
-              ? "bg-brand-charcoal text-white border-brand-charcoal"
-              : "bg-white text-[#4A3B3A] border-[#EDE4E1] hover:border-brand-primary hover:text-brand-primary"
+              ? "bg-brand-charcoal text-white"
+              : "bg-white text-[#4A3B3A] hover:text-brand-primary"
           }`}
         >
           Tất cả danh mục
@@ -119,10 +119,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             <Link
               key={cat.slug}
               href={buildShopHref({ category: cat.slug, sort })}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border transition-colors ${
+              className={`px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-colors min-h-10 inline-flex items-center tabular-nums ${
                 isSelected
-                  ? "bg-brand-charcoal text-white border-brand-charcoal"
-                  : "bg-white text-[#4A3B3A] border-[#EDE4E1] hover:border-brand-primary hover:text-brand-primary"
+                  ? "bg-brand-charcoal text-white"
+                  : "bg-white text-[#4A3B3A] hover:text-brand-primary"
               }`}
             >
               {cat.name} ({cat.productCount})

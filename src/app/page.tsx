@@ -1,7 +1,6 @@
 import { ScrollProgressBar } from "@/components/home/ScrollProgressBar";
 import { HeroEditorial } from "@/components/home/HeroEditorial";
 import { TrustMarquee } from "@/components/home/TrustMarquee";
-import { InteractiveCategoryStage } from "@/components/home/InteractiveCategoryStage";
 import { AnimatedCatalogue } from "@/components/home/AnimatedCatalogue";
 import { SafetyStoryScroll } from "@/components/home/SafetyStoryScroll";
 import { HomeClosingSection } from "@/components/home/HomeClosingSection";
@@ -35,25 +34,22 @@ export default async function HomePage() {
     <div className="relative">
       <ScrollProgressBar />
 
-      {/* 1. Editorial Split Hero with Masked Typography & Live Spotlight Showcase */}
+      {/* 1. Editorial Split Hero & 3-Category Spotlight */}
       <HeroEditorial
         spotlightProducts={spotlightProducts}
         totalProducts={products.length}
       />
 
-      {/* 2. Continuous Trust & Safety Ribbon */}
+      {/* 2. Brand Trust Marquee */}
       <TrustMarquee />
 
-      {/* 3. Interactive Category Stage with layoutId Tab Switcher */}
-      <InteractiveCategoryStage categories={categories} products={products} />
-
-      {/* 4. Curated Product Catalogue with Staggered Category Filtering */}
+      {/* 3. Filterable Product Catalogue */}
       <AnimatedCatalogue categories={categories} products={products} />
 
-      {/* 5. Pinned Safety Story with SVG Seal & Double-Bezel Cards */}
+      {/* 4. Sticky Safety Standards Story */}
       <SafetyStoryScroll />
 
-      {/* 6. Commitments, Interactive FAQ & Espresso Brand Sanctuary */}
+      {/* 5. Concise FAQ & Direct Support Closing */}
       <HomeClosingSection />
     </div>
   );

@@ -8,7 +8,7 @@ export function ScrollToTop() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY > 400);
+      setVisible(window.scrollY > 420);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -22,12 +22,13 @@ export function ScrollToTop() {
 
   return (
     <button
+      type="button"
       onClick={scrollToTop}
       aria-label="Cuộn lên đầu trang"
-      className="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-brand-charcoal/80 hover:bg-brand-charcoal text-white shadow-xl backdrop-blur-sm transition-all duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-rose cursor-pointer"
+      /* taste-skill-ignore: floating back-to-top action button */
+      className="fixed bottom-5 right-5 z-40 w-11 h-11 inline-flex items-center justify-center rounded-full bg-[#241818] hover:bg-[#3A2828] text-white shadow-xl transition-[transform,background-color] duration-200 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-rose cursor-pointer"
     >
       <ArrowUp className="w-5 h-5" />
     </button>
   );
 }
-

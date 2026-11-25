@@ -44,7 +44,7 @@ function AnimatedCounter({
   useEffect(() => {
     if (!isInView || reduceMotion) return;
     const controls = animate(0, value, {
-      duration: 1.0,
+      duration: 0.9,
       ease: motionTokens.easing.smooth,
       onUpdate: (latest) => setDisplay(Math.round(latest)),
     });
@@ -86,11 +86,13 @@ export function HeroEditorial({
   const showcaseY = useTransform(
     scrollYProgress,
     [0, 1],
-    reduceMotion ? [0, 0] : [0, -24]
+    reduceMotion ? [0, 0] : [0, -20]
   );
 
   const activeProduct = spotlightProducts[activeIdx] ?? spotlightProducts[0];
-  const isFacebookOnly = activeProduct ? isBeKhoeMeVuiProduct(activeProduct) : false;
+  const isFacebookOnly = activeProduct
+    ? isBeKhoeMeVuiProduct(activeProduct)
+    : false;
 
   const headlineLineInitial = reduceMotion
     ? false
@@ -100,14 +102,13 @@ export function HeroEditorial({
     <section
       ref={heroRef}
       aria-label="Giới thiệu LIVORA Official"
-      className="relative overflow-hidden pt-6 sm:pt-10 lg:pt-14 pb-12 sm:pb-16 lg:pb-20"
+      className="relative overflow-hidden pt-6 pb-12 sm:pt-10 sm:pb-16 lg:py-16 xl:py-20"
     >
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Editorial Column */}
-          <div className="lg:col-span-6 space-y-6 sm:space-y-8">
-            {/* Masked Line-by-Line Headline Reveal */}
-            <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-black text-[#1E1616] leading-[1.12] tracking-tight text-balance">
+          <div className="lg:col-span-6 space-y-5 sm:space-y-7">
+            <h1 className="text-[28px] sm:text-4xl lg:text-[44px] xl:text-[52px] font-black text-[#1E1616] leading-[1.15] tracking-tight text-balance">
               <span className="block overflow-hidden pb-1">
                 <motion.span
                   className="block"
@@ -122,9 +123,9 @@ export function HeroEditorial({
                   Yêu thương từ những điều nhỏ bé.
                 </motion.span>
               </span>
-              <span className="block overflow-hidden pb-2 mt-1">
+              <span className="block overflow-hidden pb-1.5 mt-1">
                 <motion.span
-                  className="block font-editorial italic font-semibold text-[#933D33]"
+                  className="block text-[#933D33]"
                   initial={headlineLineInitial}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{
@@ -144,27 +145,27 @@ export function HeroEditorial({
               transition={{
                 duration: motionTokens.duration.slow,
                 ease: motionTokens.easing.smooth,
-                delay: 0.26,
+                delay: 0.25,
               }}
               className="text-sm sm:text-base lg:text-lg text-[#4A3B3A] leading-relaxed max-w-xl text-pretty"
             >
-              Gia dụng thông minh Bear phiên bản tiếng Việt và bộ đồ dùng ăn dặm an toàn cho mẹ & bé. Kiểm định vật liệu không BPA, bảo hành điện tử 18 tháng, 1 đổi 1 trong 30 ngày.
+              Gia dụng thông minh Bear phiên bản tiếng Việt và bộ đồ dùng ăn dặm an toàn cho mẹ & bé. Vật liệu không BPA, bảo hành điện tử 18 tháng, 1 đổi 1 trong 30 ngày.
             </motion.p>
 
-            {/* Tactile CTA Row (Button-in-Button + Anchor) */}
+            {/* Primary CTA + Collection Anchor */}
             <motion.div
               initial={reduceMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: motionTokens.duration.slow,
                 ease: motionTokens.easing.smooth,
-                delay: 0.34,
+                delay: 0.33,
               }}
               className="flex flex-wrap items-center gap-3 sm:gap-4"
             >
               <Link
                 href="/shop"
-                className="group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-[#933D33] hover:bg-[#7D2E25] text-white font-bold text-sm sm:text-base transition-colors duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#933D33] min-h-12"
+                className="group inline-flex items-center gap-3 pl-5 sm:pl-6 pr-2 py-2 rounded-full bg-[#933D33] hover:bg-[#7D2E25] text-white font-bold text-sm sm:text-base transition-colors duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#933D33] min-h-12"
               >
                 <span>Khám phá cửa hàng</span>
                 <span className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-105">
@@ -174,55 +175,55 @@ export function HeroEditorial({
 
               <a
                 href="#bo-suu-tap"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white hover:bg-brand-rose-light text-[#1E1616] border border-[#E6D8D3] font-bold text-sm transition-colors duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#933D33] min-h-12"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#F4EBE6] hover:bg-[#EADBD4] text-[#1E1616] font-bold text-sm transition-colors duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#933D33] min-h-12"
               >
                 <span>Xem {totalProducts} sản phẩm</span>
                 <ArrowDown className="w-4 h-4 text-[#933D33]" />
               </a>
             </motion.div>
 
-            {/* Stat Strip with Tabular Counters */}
+            {/* Tabular Metrics */}
             <motion.div
               initial={reduceMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: motionTokens.duration.slow,
                 ease: motionTokens.easing.smooth,
-                delay: 0.42,
+                delay: 0.4,
               }}
-              className="grid grid-cols-3 gap-3 sm:gap-5 pt-4 border-t border-[#EAE0DC]"
+              className="grid grid-cols-3 gap-3 sm:gap-6 pt-5"
             >
-              <div>
-                <div className="flex items-center gap-1.5 text-xl sm:text-2xl font-black text-[#1E1616]">
+              <div className="p-3 sm:p-4 rounded-2xl bg-[#F4EBE6]/70">
+                <div className="flex items-center gap-1.5 text-lg sm:text-2xl font-black text-[#1E1616]">
                   <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#933D33] shrink-0" />
                   <AnimatedCounter value={18} suffix=" th" />
                 </div>
-                <p className="text-[11px] sm:text-xs text-[#5A4D4B] mt-0.5">
+                <p className="text-xs text-[#5A4D4B] mt-1">
                   Bảo hành điện tử
                 </p>
               </div>
-              <div>
-                <div className="flex items-center gap-1.5 text-xl sm:text-2xl font-black text-[#1E1616]">
+              <div className="p-3 sm:p-4 rounded-2xl bg-[#F4EBE6]/70">
+                <div className="flex items-center gap-1.5 text-lg sm:text-2xl font-black text-[#1E1616]">
                   <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5 text-[#933D33] shrink-0" />
                   <AnimatedCounter value={30} suffix=" ngày" />
                 </div>
-                <p className="text-[11px] sm:text-xs text-[#5A4D4B] mt-0.5">
+                <p className="text-xs text-[#5A4D4B] mt-1">
                   1 đổi 1 tận nơi
                 </p>
               </div>
-              <div>
-                <div className="flex items-center gap-1.5 text-xl sm:text-2xl font-black text-[#1E1616]">
-                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#5668AD] shrink-0" />
+              <div className="p-3 sm:p-4 rounded-2xl bg-[#F4EBE6]/70">
+                <div className="flex items-center gap-1.5 text-lg sm:text-2xl font-black text-[#1E1616]">
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#374880] shrink-0" />
                   <AnimatedCounter value={totalProducts} suffix=" SP" />
                 </div>
-                <p className="text-[11px] sm:text-xs text-[#5A4D4B] mt-0.5">
+                <p className="text-xs text-[#5A4D4B] mt-1">
                   Chọn lọc chính hãng
                 </p>
               </div>
             </motion.div>
           </div>
 
-          {/* Right Double-Bezel Interactive Spotlight Showcase */}
+          {/* Right Double-Bezel Interactive Spotlight */}
           {activeProduct && (
             <motion.div
               style={{ y: showcaseY }}
@@ -230,38 +231,36 @@ export function HeroEditorial({
               onMouseLeave={() => setIsPaused(false)}
               className="lg:col-span-6"
             >
-              {/* Outer Shell (Double-Bezel Architecture) */}
-              <div className="rounded-[2rem] p-2 bg-[#EFE5E1] ring-1 ring-[#E2D3CD]">
-                {/* Inner Core */}
-                <div className="rounded-[calc(2rem-0.5rem)] bg-white p-5 sm:p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-                  {/* Spotlight Switcher Pills */}
-                  <div className="flex items-center justify-between gap-2 mb-5">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      {spotlightProducts.map((item, idx) => {
-                        const isSelected = idx === activeIdx;
-                        return (
-                          <button
-                            key={item.slug}
-                            type="button"
-                            onClick={() => setActiveIdx(idx)}
-                            className={`relative px-3 py-1.5 rounded-full text-xs font-bold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary ${
-                              isSelected ? "text-white" : "text-[#5A4D4B] hover:text-[#1E1616]"
-                            }`}
-                          >
-                            {isSelected && (
-                              <motion.span
-                                layoutId="hero-spotlight-pill"
-                                transition={springs.tab}
-                                className="absolute inset-0 rounded-full bg-[#241818]"
-                              />
-                            )}
-                            <span className="relative z-10">
-                              {getCategoryDisplayName(item.category)}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
+              <div className="rounded-[2rem] p-2 bg-[#EFE5E1]">
+                <div className="rounded-[calc(2rem-0.5rem)] bg-white p-4 sm:p-6 lg:p-7">
+                  {/* Spotlight Switcher */}
+                  <div className="flex items-center gap-1.5 flex-wrap mb-4 sm:mb-5">
+                    {spotlightProducts.map((item, idx) => {
+                      const isSelected = idx === activeIdx;
+                      return (
+                        <button
+                          key={item.slug}
+                          type="button"
+                          onClick={() => setActiveIdx(idx)}
+                          className={`relative px-3.5 py-2 rounded-full text-xs font-bold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary min-h-9 ${
+                            isSelected
+                              ? "text-white"
+                              : "text-[#5A4D4B] hover:text-[#1E1616] bg-[#FAF6F2]"
+                          }`}
+                        >
+                          {isSelected && (
+                            <motion.span
+                              layoutId="hero-spotlight-pill"
+                              transition={springs.tab}
+                              className="absolute inset-0 rounded-full bg-[#241818]"
+                            />
+                          )}
+                          <span className="relative z-10">
+                            {getCategoryDisplayName(item.category)}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
 
                   {/* Animated Product Stage */}
@@ -283,14 +282,18 @@ export function HeroEditorial({
                         duration: motionTokens.duration.normal,
                         ease: motionTokens.easing.smooth,
                       }}
-                      className="space-y-5"
+                      className="space-y-4 sm:space-y-5"
                     >
                       <Link
                         href={`/san-pham/${activeProduct.slug}`}
-                        className="group relative block aspect-[4/3] w-full rounded-2xl bg-[#FAF6F2] overflow-hidden border border-[#F0E6E2]"
+                        className="group relative block aspect-[4/3] w-full rounded-2xl bg-[#FAF6F2] overflow-hidden"
                       >
                         <Image
-                          src={activeProduct.imageUrl || activeProduct.thumbnail || "/placeholder.png"}
+                          src={
+                            activeProduct.imageUrl ||
+                            activeProduct.thumbnail ||
+                            "/placeholder.png"
+                          }
                           alt={activeProduct.name}
                           fill
                           priority
@@ -303,7 +306,9 @@ export function HeroEditorial({
                               {getDiscountLabel(activeProduct.discountPercentage)}
                             </Badge>
                           )}
-                          {activeProduct.isHot && <Badge variant="hot">HOT</Badge>}
+                          {activeProduct.isHot && (
+                            <Badge variant="hot">HOT</Badge>
+                          )}
                         </div>
                       </Link>
 
@@ -339,7 +344,7 @@ export function HeroEditorial({
                               href={FACEBOOK_PAGE_URL}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#374880] hover:bg-[#2B3966] text-white text-xs font-bold transition-colors active:scale-[0.97] min-h-11"
+                              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#374880] hover:bg-[#2B3966] text-white text-xs sm:text-sm font-bold transition-colors active:scale-[0.97] min-h-11"
                             >
                               <FacebookIcon className="w-4 h-4 fill-current shrink-0" />
                               <span>Mua qua Facebook</span>
@@ -349,7 +354,7 @@ export function HeroEditorial({
                               href={TIKTOK_SHOP_URL}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#933D33] hover:bg-[#7D2E25] text-white text-xs font-bold transition-colors active:scale-[0.97] min-h-11"
+                              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#933D33] hover:bg-[#7D2E25] text-white text-xs sm:text-sm font-bold transition-colors active:scale-[0.97] min-h-11"
                             >
                               <TikTokIcon className="w-4 h-4 fill-current shrink-0" />
                               <span>Mua trên TikTok Shop</span>
@@ -358,7 +363,7 @@ export function HeroEditorial({
                           <Link
                             href={`/san-pham/${activeProduct.slug}`}
                             aria-label={`Xem chi tiết ${activeProduct.name}`}
-                            className="w-11 h-11 rounded-xl border border-[#E6D8D3] hover:border-[#933D33] hover:bg-brand-rose-light flex items-center justify-center text-[#1E1616] hover:text-[#933D33] transition-colors"
+                            className="w-11 h-11 rounded-xl bg-[#F4EBE6] hover:bg-brand-rose-light flex items-center justify-center text-[#1E1616] hover:text-[#933D33] transition-colors"
                           >
                             <ArrowUpRight className="w-4 h-4" />
                           </Link>

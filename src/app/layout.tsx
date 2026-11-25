@@ -49,7 +49,7 @@ export default async function RootLayout({
 
   return (
     <html lang="vi" className={`scroll-smooth ${plusJakarta.variable} ${lora.variable}`}>
-      <body className={`${plusJakarta.className} min-h-screen flex flex-col bg-brand-cream text-brand-charcoal antialiased selection:bg-brand-rose selection:text-white`}>
+      <body className={`${plusJakarta.className} min-h-[100dvh] flex flex-col bg-brand-cream text-brand-charcoal antialiased selection:bg-brand-rose selection:text-white`}>
         <Header categories={categories} />
         <main className="flex-1">{children}</main>
         <Footer categories={categories} />

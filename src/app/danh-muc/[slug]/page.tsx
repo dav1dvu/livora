@@ -97,22 +97,22 @@ export default async function CategoryPage({
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8 pb-16">
       {/* Breadcrumb */}
       <Breadcrumb
         items={[
-          { label: "Sản phẩm", href: "/danh-muc/tat-ca" },
+          { label: "Shop", href: "/shop" },
           { label: categoryName },
         ]}
       />
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[#EDE4E1] gap-4">
+      <div className="rounded-3xl bg-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black text-brand-charcoal tracking-tight">
             {categoryName}
           </h1>
-          <p className="text-xs sm:text-sm text-brand-muted mt-1">
+          <p className="text-xs sm:text-sm text-brand-muted mt-1 tabular-nums">
             Hiển thị {products.length} sản phẩm chính hãng LIVORA
           </p>
         </div>

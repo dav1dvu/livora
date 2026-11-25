@@ -41,9 +41,9 @@ export function SafetyStoryScroll() {
   return (
     <section
       aria-labelledby="safety-story-heading"
-      className="py-12 sm:py-16 lg:py-24 bg-[#F5ECE8]/70 border-y border-[#E9DCD7]"
+      className="py-12 sm:py-16 lg:py-24 bg-[#F4EBE6]"
     >
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Sticky Editorial Left Column */}
           <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-5">
@@ -57,11 +57,11 @@ export function SafetyStoryScroll() {
               }}
               className="space-y-4"
             >
-              {/* Animated SVG Seal (pathLength draw-on) */}
-              <div className="inline-flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-white border border-[#E6D8D3]">
+              {/* Animated SVG Seal */}
+              <div className="inline-flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-white">
                 <svg
-                  width="28"
-                  height="28"
+                  width="26"
+                  height="26"
                   viewBox="0 0 28 28"
                   fill="none"
                   aria-hidden="true"
@@ -103,7 +103,7 @@ export function SafetyStoryScroll() {
 
               <h2
                 id="safety-story-heading"
-                className="text-2xl sm:text-4xl font-black text-[#1E1616] tracking-tight leading-tight text-balance"
+                className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#1E1616] tracking-tight leading-tight text-balance"
               >
                 Thiết bị cho bé cần độ an toàn cao nhất trong từng chi tiết.
               </h2>
@@ -121,7 +121,7 @@ export function SafetyStoryScroll() {
               return (
                 <motion.article
                   key={item.title}
-                  initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+                  initial={reduceMotion ? false : { opacity: 0, y: 22 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={VIEWPORT_ONCE}
                   transition={{
@@ -129,17 +129,17 @@ export function SafetyStoryScroll() {
                     ease: motionTokens.easing.smooth,
                     delay: idx * 0.06,
                   }}
-                  className="rounded-3xl p-1.5 bg-[#EBE0DC] ring-1 ring-[#DFD0CB]"
+                  className="rounded-3xl p-1.5 bg-[#E7DAD4]"
                 >
-                  <div className="rounded-[calc(1.5rem-0.375rem)] bg-white p-6 sm:p-7 flex flex-col sm:flex-row gap-4 sm:gap-5 items-start">
+                  <div className="rounded-[calc(1.5rem-0.375rem)] bg-white p-5 sm:p-7 flex flex-col sm:flex-row gap-4 sm:gap-5 items-start">
                     <div
-                      className={`w-12 h-12 rounded-2xl ${item.accent} flex items-center justify-center shrink-0`}
+                      className={`w-11 h-11 sm:w-12 sm:h-12 rounded-2xl ${item.accent} flex items-center justify-center shrink-0`}
                     >
                       <Icon className="w-5 h-5" />
                     </div>
 
                     <div className="space-y-1.5">
-                      <span className="inline-block text-[11px] font-bold text-[#933D33] bg-brand-rose-light px-2.5 py-0.5 rounded-md">
+                      <span className="inline-block text-xs font-bold text-[#933D33] bg-brand-rose-light px-2.5 py-0.5 rounded-md">
                         {item.tag}
                       </span>
                       <h3 className="text-base sm:text-lg font-black text-[#1E1616]">

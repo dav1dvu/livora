@@ -1,24 +1,28 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, MapPin, ShieldCheck, Heart } from "lucide-react";
+import { Phone, Mail, MapPin, ShieldCheck } from "lucide-react";
 import { FacebookIcon, TikTokIcon } from "@/components/ui/Icons";
-import { Category, NAV_ITEMS, SITE_INFO, FACEBOOK_PAGE_URL, TIKTOK_SHOP_URL } from "@/lib/types";
+import {
+  Category,
+  NAV_ITEMS,
+  SITE_INFO,
+  FACEBOOK_PAGE_URL,
+  TIKTOK_SHOP_URL,
+} from "@/lib/types";
 
 interface FooterProps {
   categories: Category[];
 }
 
 export function Footer({ categories }: FooterProps) {
-  const displayCats = categories.slice(0, 8);
-
   return (
-    <footer className="bg-[#241C1C] text-[#D9CECB] border-t border-[#362A2A] mt-12">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div>
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white p-0.5 border border-[#4A3838]">
+    <footer className="bg-[#241818] text-[#D9CECB] mt-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+          {/* Brand Summary */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white p-0.5 shrink-0">
                 <Image
                   src="/images/logo.png"
                   alt="LIVORA"
@@ -31,75 +35,63 @@ export function Footer({ categories }: FooterProps) {
                 <span className="font-black text-xl text-white tracking-tight leading-none">
                   LIVORA
                 </span>
-                <span className="text-[10px] text-brand-rose font-semibold mt-0.5 flex items-center gap-1">
+                <span className="text-xs text-brand-rose font-semibold mt-0.5">
                   Chăm sóc bằng cả trái tim
-                  <Heart className="w-2.5 h-2.5 text-brand-rose fill-brand-rose" />
                 </span>
               </div>
             </div>
-            <p className="text-xs text-[#B5A6A3] leading-relaxed mb-4">
+
+            <p className="text-xs sm:text-sm text-[#C4B5B2] leading-relaxed max-w-md text-pretty">
               {SITE_INFO.description}
             </p>
-            <div className="flex items-center gap-2 text-xs text-[#E8A59C] font-semibold bg-[#362828] p-2.5 rounded-xl border border-[#4F3939]">
+
+            <div className="inline-flex items-center gap-2 text-xs text-[#F3EBE7] font-semibold bg-[#332323] px-3.5 py-2.5 rounded-xl">
               <ShieldCheck className="w-4 h-4 shrink-0 text-brand-rose" />
-              <span>Bảo hành chính hãng 18 tháng - 1 đổi 1 30 ngày</span>
+              <span>Bảo hành chính hãng 18 tháng, 1 đổi 1 trong 30 ngày</span>
             </div>
           </div>
 
-          {/* Quick Categories & Navigation */}
-          <div>
-            <h4 className="text-sm font-bold text-white mb-4">
-              Điều Hướng & Danh Mục
-            </h4>
-            <ul className="space-y-2 text-xs mb-5">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-[#D9CECB] hover:text-brand-rose font-semibold transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <h5 className="text-xs font-bold text-[#9B8C8A] uppercase tracking-wider mb-2.5">
-              Danh Mục Sản Phẩm
-            </h5>
-            <ul className="space-y-2 text-xs">
-              {displayCats.map((cat) => (
-                <li key={cat.slug}>
-                  <Link
-                    href={`/danh-muc/${cat.slug}`}
-                    className="text-[#B5A6A3] hover:text-brand-rose transition-colors"
-                  >
-                    {cat.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Navigation & Categories */}
+          <div className="lg:col-span-3 grid grid-cols-2 gap-6">
+            <div>
+              <h4 className="text-sm font-bold text-white mb-3">Điều hướng</h4>
+              <ul className="space-y-2 text-xs sm:text-sm">
+                {NAV_ITEMS.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-[#C4B5B2] hover:text-brand-rose transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Policies */}
-          <div>
-            <h4 className="text-sm font-bold text-white mb-4">
-              Chính Sách & Hỗ Trợ
-            </h4>
-            <ul className="space-y-2 text-xs text-[#B5A6A3]">
-              <li>Chính sách bảo hành chính hãng 18 tháng</li>
-              <li>Chính sách 1 đổi 1 trong 30 ngày đầu</li>
-              <li>Chính sách vận chuyển & đồng kiểm toàn quốc</li>
-              <li>Công thức chế biến ăn dặm & sữa hạt cho bé</li>
-              <li>Hệ thống bảo hành & hỗ trợ kỹ thuật tận tâm</li>
-            </ul>
+            <div>
+              <h4 className="text-sm font-bold text-white mb-3">Danh mục</h4>
+              <ul className="space-y-2 text-xs sm:text-sm">
+                {categories.map((cat) => (
+                  <li key={cat.slug}>
+                    <Link
+                      href={`/danh-muc/${cat.slug}`}
+                      className="text-[#C4B5B2] hover:text-brand-rose transition-colors"
+                    >
+                      {cat.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Contact */}
-          <div>
-            <h4 className="text-sm font-bold text-white mb-4">
-              Thông Tin Liên Hệ
+          <div className="lg:col-span-4 space-y-3">
+            <h4 className="text-sm font-bold text-white mb-3">
+              Thông tin liên hệ
             </h4>
-            <div className="space-y-3 text-xs text-[#B5A6A3]">
+            <div className="space-y-3 text-xs sm:text-sm text-[#C4B5B2]">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-brand-rose shrink-0 mt-0.5" />
                 <span>{SITE_INFO.address}</span>
@@ -108,54 +100,54 @@ export function Footer({ categories }: FooterProps) {
                 <Phone className="w-4 h-4 text-brand-rose shrink-0" />
                 <a
                   href={`tel:${SITE_INFO.phone.replace(/[^0-9]/g, "")}`}
-                  className="hover:text-white font-medium"
+                  className="hover:text-white font-semibold tabular-nums transition-colors"
                 >
                   Hotline: {SITE_INFO.phone}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
-                <FacebookIcon className="w-4 h-4 text-brand-rose fill-brand-rose shrink-0" />
+                <Mail className="w-4 h-4 text-brand-rose shrink-0" />
+                <a
+                  href={`mailto:${SITE_INFO.email}`}
+                  className="hover:text-white transition-colors break-all"
+                >
+                  {SITE_INFO.email}
+                </a>
+              </div>
+              <div className="flex items-center gap-3 pt-1">
                 <a
                   href={FACEBOOK_PAGE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#332323] hover:bg-[#422E2E] text-white text-xs font-semibold transition-colors"
                 >
-                  Fanpage Facebook
+                  <FacebookIcon className="w-3.5 h-3.5 text-brand-rose fill-current shrink-0" />
+                  <span>Facebook</span>
                 </a>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <TikTokIcon className="w-4 h-4 text-brand-rose fill-brand-rose shrink-0" />
                 <a
                   href={TIKTOK_SHOP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#332323] hover:bg-[#422E2E] text-white text-xs font-semibold transition-colors"
                 >
-                  TikTok Shop
-                </a>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-brand-rose shrink-0" />
-                <a href={`mailto:${SITE_INFO.email}`} className="hover:text-white">
-                  {SITE_INFO.email}
+                  <TikTokIcon className="w-3.5 h-3.5 text-brand-rose fill-current shrink-0" />
+                  <span>TikTok Shop</span>
                 </a>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="mt-12 pt-6 border-t border-[#362A2A] text-center text-xs text-[#8C7D7B] flex flex-col sm:flex-row items-center justify-between gap-3">
+        {/* Bottom Copyright */}
+        <div className="mt-10 pt-6 bg-[#1D1313]/60 -mx-4 px-4 sm:mx-0 sm:px-5 py-4 rounded-2xl text-xs text-[#A89896] flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>© {new Date().getFullYear()} LIVORA Official Store. Tất cả quyền được bảo lưu.</p>
-          <p className="text-[11px] text-[#A89896] flex items-center justify-center gap-1.5">
-            <span>Yêu thương từ những điều nhỏ bé</span>
-            <Heart className="w-2.5 h-2.5 text-brand-rose fill-brand-rose" />
-            <span>Chăm sóc bằng cả trái tim</span>
+          <p className="text-xs text-[#C4B5B2]">
+            Yêu thương từ những điều nhỏ bé. Chăm sóc bằng cả trái tim.
           </p>
         </div>
       </div>
     </footer>
   );
 }
+
 export default Footer;

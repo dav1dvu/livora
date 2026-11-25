@@ -73,11 +73,11 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       : [];
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 space-y-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-10 pb-16">
       {/* 1. Breadcrumbs */}
       <Breadcrumb
         items={[
-          { label: "Sản phẩm", href: "/danh-muc/tat-ca" },
+          { label: "Shop", href: "/shop" },
           ...(product.category
             ? [{ label: categoryName, href: `/danh-muc/${product.category}` }]
             : []),
@@ -104,7 +104,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           <div>
             <div className="flex items-center gap-2 mb-2 flex-wrap">
               {product.category && (
-                <span className="text-xs font-bold text-brand-primary bg-brand-rose-light px-2.5 py-1 rounded-lg border border-brand-rose-border">
+                <span className="text-xs font-bold text-brand-primary bg-brand-rose-light px-2.5 py-1 rounded-lg">
                   {categoryName}
                 </span>
               )}
@@ -112,18 +112,18 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               {product.isNew && <Badge variant="new">Bản Quốc Tế Mới</Badge>}
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-black text-brand-charcoal leading-snug tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-black text-brand-charcoal leading-snug tracking-tight text-balance">
               {product.name}
             </h1>
           </div>
 
           {/* Pricing Box */}
-          <div className="p-5 rounded-2xl bg-brand-rose-light border border-brand-rose-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="p-5 sm:p-6 rounded-2xl bg-brand-rose-light flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="text-xs text-brand-muted uppercase tracking-wider font-bold mb-1">
-                Giá khuyến mãi chính hãng:
+              <div className="text-xs text-brand-muted font-bold mb-1">
+                Giá khuyến mãi chính hãng
               </div>
-              <div className="flex items-baseline gap-3 flex-wrap">
+              <div className="flex items-baseline gap-3 flex-wrap tabular-nums">
                 <span className="text-3xl sm:text-4xl font-black text-brand-primary">
                   {formatPrice(product.price)}
                 </span>
@@ -140,7 +140,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               </div>
             </div>
 
-            <div className="text-xs text-[#5C4D4B] space-y-1 sm:text-right border-t sm:border-t-0 sm:border-l border-brand-rose-border pt-2 sm:pt-0 sm:pl-4">
+            <div className="text-xs text-[#5C4D4B] space-y-1 sm:text-right">
               <p className="flex items-center sm:justify-end gap-1 text-[#3B7A57] font-bold">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Còn hàng chính hãng</span>
@@ -149,18 +149,13 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             </div>
           </div>
 
-          {/* PRIMARY CALL TO ACTION: Channel-aware Purchase & Support */}
-          <div className="p-6 rounded-2xl bg-white border-2 border-brand-rose-border shadow-xl shadow-brand-rose/10 space-y-4">
+          {/* PRIMARY CALL TO ACTION */}
+          <div className="p-5 sm:p-6 rounded-2xl bg-white space-y-4">
             <div>
-              <div className="flex items-center justify-between">
-                <h2 className="font-black text-base text-brand-charcoal">
-                  Đặt Mua & Tư Vấn Sản Phẩm
-                </h2>
-                <span className="text-xs font-bold text-brand-primary bg-brand-rose-light px-2.5 py-0.5 rounded-md border border-brand-rose-border">
-                  LIVORA Official
-                </span>
-              </div>
-              <p className="text-xs text-brand-muted mt-1">
+              <h2 className="font-black text-base text-brand-charcoal">
+                Đặt mua & tư vấn sản phẩm
+              </h2>
+              <p className="text-xs sm:text-sm text-brand-muted mt-1 text-pretty">
                 {isFacebookOnly
                   ? "Đặt mua và nhận tư vấn trực tiếp qua Fanpage Facebook chính thức của LIVORA để được hỗ trợ 24/7."
                   : "Đặt hàng nhanh chóng qua TikTok Shop để nhận ưu đãi vận chuyển & giảm giá, hoặc nhắn tin trực tiếp tới Fanpage Facebook để được hỗ trợ 24/7."}
@@ -178,7 +173,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               {isFacebookOnly ? (
                 <a
                   href={`tel:${SITE_INFO.phone.replace(/[^0-9]/g, "")}`}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm bg-brand-rose-light hover:bg-[#F8DFD7] text-[#933D33] border border-brand-rose-border transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#933D33] cursor-pointer min-h-12"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm bg-brand-rose-light hover:bg-[#F8DFD7] text-[#933D33] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#933D33] cursor-pointer min-h-12 tabular-nums"
                 >
                   <PhoneCall className="w-4 h-4 shrink-0" />
                   <span>Hotline: {SITE_INFO.phone}</span>
@@ -188,7 +183,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   href={FACEBOOK_PAGE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm bg-brand-lavender-light hover:bg-[#E2E6F7] text-[#374880] border border-brand-lavender-border transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5668AD] cursor-pointer min-h-12"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm bg-brand-lavender-light hover:bg-[#E2E6F7] text-[#374880] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5668AD] cursor-pointer min-h-12"
                 >
                   <FacebookIcon className="w-5 h-5 fill-current shrink-0" />
                   <span>Tư vấn qua Facebook</span>
@@ -197,27 +192,27 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             </div>
           </div>
 
-          {/* Trust Highlights Checklist */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-[#FAF6F2] border border-[#EDE4E1] text-xs">
+          {/* Trust Highlights */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-[#F4EBE6] text-xs">
             <div className="flex items-center gap-2.5">
               <ShieldCheck className="w-5 h-5 text-brand-primary shrink-0" />
               <div>
                 <strong className="text-brand-charcoal">Bảo hành 18 tháng</strong>
-                <p className="text-brand-muted text-[11px]">Chính hãng Livora</p>
+                <p className="text-brand-muted text-xs">Chính hãng Livora</p>
               </div>
             </div>
             <div className="flex items-center gap-2.5">
               <RotateCcw className="w-5 h-5 text-[#C27357] shrink-0" />
               <div>
-                <strong className="text-brand-charcoal">1 Đổi 1 trong 30 ngày</strong>
-                <p className="text-brand-muted text-[11px]">Lỗi kỹ thuật NSX</p>
+                <strong className="text-brand-charcoal">1 đổi 1 trong 30 ngày</strong>
+                <p className="text-brand-muted text-xs">Lỗi kỹ thuật NSX</p>
               </div>
             </div>
             <div className="flex items-center gap-2.5">
-              <Truck className="w-5 h-5 text-[#6071B8] shrink-0" />
+              <Truck className="w-5 h-5 text-[#374880] shrink-0" />
               <div>
                 <strong className="text-brand-charcoal">Freeship từ 450k</strong>
-                <p className="text-brand-muted text-[11px]">Giao hàng toàn quốc</p>
+                <p className="text-brand-muted text-xs">Giao hàng toàn quốc</p>
               </div>
             </div>
           </div>
@@ -225,7 +220,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           {/* Technical Specifications */}
           <div>
             <h2 className="text-lg font-black text-brand-charcoal mb-3">
-              Thông Số Kỹ Thuật
+              Thông số kỹ thuật
             </h2>
             <ProductSpecs specs={product.specs} />
           </div>
@@ -234,12 +229,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
       {/* 3. Related Products */}
       {related.length > 0 && (
-        <section className="pt-6">
-          <div className="flex items-center justify-between mb-6 pb-2 border-b border-[#EDE4E1]">
-            <h2 className="text-xl sm:text-2xl font-black text-brand-charcoal">
-              Sản Phẩm Cùng Loại
-            </h2>
-          </div>
+        <section className="pt-6 space-y-5">
+          <h2 className="text-xl sm:text-2xl font-black text-brand-charcoal">
+            Sản phẩm cùng loại
+          </h2>
           <ProductGrid products={related} />
         </section>
       )}

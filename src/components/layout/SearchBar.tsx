@@ -11,7 +11,7 @@ export function SearchBar() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
-      router.push(`/danh-muc/tat-ca?q=${encodeURIComponent(query.trim())}`);
+      router.push(`/shop?q=${encodeURIComponent(query.trim())}`);
     }
   };
 
@@ -26,7 +26,7 @@ export function SearchBar() {
         placeholder="Tìm nồi nấu chậm, máy xay ăn dặm, máy làm sữa hạt..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="w-full pl-10 pr-9 py-2.5 rounded-full border border-[#EDE4E1] bg-white text-brand-charcoal text-sm placeholder:text-[#9B8C8A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-colors"
+        className="w-full pl-10 pr-9 py-2.5 rounded-full bg-white text-brand-charcoal text-sm placeholder:text-[#9B8C8A] focus:outline-none focus:ring-2 focus:ring-brand-primary transition-colors min-h-10"
       />
       <Search className="w-4 h-4 text-[#9B8C8A] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
       {query && (

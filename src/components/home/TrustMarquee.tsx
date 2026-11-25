@@ -14,7 +14,7 @@ export function TrustMarquee() {
   return (
     <section
       aria-label="Cam kết thương hiệu LIVORA"
-      className="group/marquee bg-[#241818] text-[#F3EBE7] border-y border-[#3B2B2B] overflow-hidden py-3.5"
+      className="group/marquee bg-[#241818] text-[#F3EBE7] overflow-hidden py-3.5"
     >
       <div className="flex w-max animate-livora-marquee motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:gap-y-2 motion-reduce:px-4">
         {repeated.map((label, idx) => (

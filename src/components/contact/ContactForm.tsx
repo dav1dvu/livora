@@ -58,12 +58,12 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-2xl bg-brand-rose-light border border-brand-rose-border p-6 sm:p-8 text-center space-y-4">
+      <div className="rounded-2xl bg-brand-rose-light p-6 sm:p-8 text-center space-y-4">
         <div className="w-12 h-12 rounded-full bg-[#3B7A57]/15 text-[#3B7A57] flex items-center justify-center mx-auto">
           <CheckCircle2 className="w-6 h-6" />
         </div>
         <h3 className="text-lg font-black text-[#1E1616]">
-          Đã ghi nhận thông tin liên hệ!
+          Đã ghi nhận thông tin liên hệ
         </h3>
         <p className="text-xs sm:text-sm text-[#5A4D4B] max-w-md mx-auto leading-relaxed">
           Cảm ơn bạn đã liên hệ LIVORA. Để được phản hồi tức thì 24/7, bạn cũng có thể nhắn trực tiếp qua Fanpage Facebook chính thức của chúng tôi.
@@ -73,7 +73,7 @@ export function ContactForm() {
             href={FACEBOOK_PAGE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#374880] hover:bg-[#2B3966] text-white text-xs font-bold transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#374880] hover:bg-[#2B3966] text-white text-xs sm:text-sm font-bold transition-colors min-h-11"
           >
             <FacebookIcon className="w-4 h-4 fill-current" />
             <span>Nhắn qua Facebook ngay</span>
@@ -81,7 +81,7 @@ export function ContactForm() {
           <button
             type="button"
             onClick={() => setSubmitted(false)}
-            className="px-4 py-2.5 rounded-xl border border-[#EDE4E1] bg-white hover:bg-brand-cream text-xs font-bold text-[#1E1616] cursor-pointer transition-colors"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-brand-cream text-xs sm:text-sm font-bold text-[#1E1616] cursor-pointer transition-colors min-h-11"
           >
             Gửi yêu cầu khác
           </button>

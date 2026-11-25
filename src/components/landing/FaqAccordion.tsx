@@ -26,17 +26,17 @@ export function FaqAccordion({
 
   return (
     <section aria-labelledby="faq-heading" className="py-8 sm:py-12">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-6 sm:mb-8">
             <h2
               id="faq-heading"
-              className="text-2xl sm:text-4xl font-black text-[#1E1616] tracking-tight"
+              className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#1E1616] tracking-tight"
             >
               {title}
             </h2>
-            <p className="text-sm text-[#3D2E2D] mt-1.5">{subtitle}</p>
+            <p className="text-sm sm:text-base text-[#3D2E2D] mt-1.5">{subtitle}</p>
           </div>
 
           {/* Danh sách câu hỏi dạng gập mở */}
@@ -46,7 +46,7 @@ export function FaqAccordion({
               return (
                 <div
                   key={faq.q}
-                  className="rounded-2xl bg-white border border-[#EDE4E1] overflow-hidden"
+                  className="rounded-2xl bg-white overflow-hidden"
                 >
                   <button
                     type="button"
