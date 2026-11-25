@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { DEFAULT_FAQS, type FaqItem } from "@/lib/faqs";
+import { motionTokens } from "@/lib/motion-tokens";
 
 interface FaqAccordionProps {
   faqs?: FaqItem[];
@@ -15,6 +17,7 @@ export function FaqAccordion({
   title = "Câu hỏi thường gặp",
   subtitle = "Giải đáp nhanh những thắc mắc phổ biến của các mẹ khi mua sắm.",
 }: FaqAccordionProps) {
+  const reduceMotion = useReducedMotion();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggle = (idx: number) => {
@@ -42,8 +45,8 @@ export function FaqAccordion({
               const isOpen = openIndex === idx;
               return (
                 <div
-                  key={idx}
-                  className="rounded-2xl bg-white overflow-hidden"
+                  key={faq.q}
+                  className="rounded-2xl bg-white border border-[#EDE4E1] overflow-hidden"
                 >
                   <button
                     type="button"
@@ -65,11 +68,31 @@ export function FaqAccordion({
                     </span>
                   </button>
 
-                  {isOpen && (
-                    <div className="mx-4 mb-4 sm:mx-5 sm:mb-5 p-4 rounded-xl bg-brand-cream text-xs sm:text-sm text-[#3D2E2D] leading-relaxed">
-                      {faq.a}
-                    </div>
-                  )}
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        key="answer"
+                        initial={
+                          reduceMotion
+                            ? { opacity: 1 }
+                            : { opacity: 0, y: -6 }
+                        }
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={
+                          reduceMotion
+                            ? { opacity: 0 }
+                            : { opacity: 0, y: -4 }
+                        }
+                        transition={{
+                          duration: motionTokens.duration.fast,
+                          ease: motionTokens.easing.smooth,
+                        }}
+                        className="mx-4 mb-4 sm:mx-5 sm:mb-5 p-4 rounded-xl bg-brand-cream text-xs sm:text-sm text-[#3D2E2D] leading-relaxed"
+                      >
+                        {faq.a}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               );
             })}

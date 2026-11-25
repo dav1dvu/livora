@@ -36,6 +36,39 @@ html {
 body {
   background-color: #fcf8f5;
   color: #2d2424;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-editorial {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes livora-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-livora-marquee {
+  animation: livora-marquee 34s linear infinite;
+}
+
+.group\/marquee:hover .animate-livora-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-livora-marquee {
+    animation: none;
+  }
 }
 
 ::selection {

@@ -1,14 +1,21 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans, Lora } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { getCategories } from "@/lib/categories";
 
-const inter = Inter({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin", "vietnamese"],
   display: "swap",
+  variable: "--font-sans",
+});
+
+const lora = Lora({
+  subsets: ["latin", "vietnamese"],
+  display: "swap",
+  variable: "--font-serif",
 });
 
 export const metadata: Metadata = {
@@ -41,8 +48,8 @@ export default async function RootLayout({
   const categories = await getCategories();
 
   return (
-    <html lang="vi" className="scroll-smooth">
-      <body className={`${inter.className} min-h-screen flex flex-col bg-brand-cream text-brand-charcoal antialiased selection:bg-brand-rose selection:text-white`}>
+    <html lang="vi" className={`scroll-smooth ${plusJakarta.variable} ${lora.variable}`}>
+      <body className={`${plusJakarta.className} min-h-screen flex flex-col bg-brand-cream text-brand-charcoal antialiased selection:bg-brand-rose selection:text-white`}>
         <Header categories={categories} />
         <main className="flex-1">{children}</main>
         <Footer categories={categories} />
